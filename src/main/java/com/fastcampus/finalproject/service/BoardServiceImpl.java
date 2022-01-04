@@ -39,11 +39,10 @@ public class BoardServiceImpl {
         boardRepository.deleteById(id);
     }
 
-
     //update
     // 제목, 내용만 수정
     @Transactional
-    public void boardUpdateImpl(int id, Board requestBoard){
+    public void boardUpdate(int id, Board requestBoard){
         Board board = boardRepository.findById(id).orElseThrow(
                 () -> new IllegalIdentifierException("해당 게시글이 없습니다.")
         );

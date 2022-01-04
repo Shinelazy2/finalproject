@@ -27,46 +27,7 @@ public class BoardController {
         this.boardService = boardService;
     }
 
-    //    private final BoardServiceImpl boardService;
-
-//    @Autowired
-//    public BoardController(BoardServiceImpl boardService) {
-//        this.boardService = boardService;
-//    }
-//
-//
-//    @GetMapping("/test")
-//    public Optional<Board> boardSel(Board board) {
-//        return boardService.boardSelect(board.getSeq());
-//    }
-
-//    @PostMapping("/test/{id}")
-//    public Board boardIns(@PathVariable int id) {
-//        Board board = new Board();
-//        boardService.boardInsert(id);
-//        return board;
-//    }
-
-//    @RequestMapping(path = "/hi", method = RequestMethod.GET) // get, put, delete, post 다 동작함
-//    public String hi(){
-//        return "hi";
-//    }
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "Hello Spring Boot";
-    }
-
-    // http://localhost:8080/path-variable/{name}
-    // @PathVariable(name = "name") -> /path-variable/{name} -> name 값 전달
-    @GetMapping("/path-variable/{name}")
-    public String pathVariable(@PathVariable(name = "name") String name) {
-        System.out.println("PathVariable " + name);
-        return name;
-    }
-
-
-    // Create
+    // Read
     // http://localhost:8080/board-read/1
     @GetMapping("/board-read/{id}")
     public Board boardRead(@PathVariable int id){
@@ -74,6 +35,7 @@ public class BoardController {
 
     }
 
+    // Create
     /*
         {
         "seq" : "1",
@@ -82,7 +44,6 @@ public class BoardController {
         "content" : "1234"
         }
     */
-    // Create
     // http://localhost:8080/board-create"
     @PostMapping("/board-create")
     public void boardCreate(@RequestBody Board board){
@@ -98,15 +59,15 @@ public class BoardController {
      */
     // http://localhost:8080/board-update/1
     @PutMapping("/board-update/{id}")
-    public void boardUpdates(@PathVariable int id,@RequestBody Board board) {
+    public void boardPut(@PathVariable int id,@RequestBody Board board) {
         System.out.println(board);
-        boardService.boardUpdateImpl(id, board);
+        boardService.boardUpdate(id, board);
     }
 
     //Delete
     // http://localhost:8080/board-delete/2
     @DeleteMapping("/board-delete/{id}")
-    public void boardDelete(@PathVariable int id){
+    public void boardDel(@PathVariable int id){
         boardService.boardDelete(id);
     }
 
