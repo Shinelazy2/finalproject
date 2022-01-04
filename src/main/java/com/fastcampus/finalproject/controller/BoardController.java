@@ -66,26 +66,13 @@ public class BoardController {
     }
 
 
-
-    @GetMapping("query-param3")
-    public String queryParam(Board board){
-        return board.toString();
-    }
-
-
-
-    /**
-     * Create Read Update Delete
-     */
-
+    // Create
     // http://localhost:8080/board-read/1
     @GetMapping("/board-read/{id}")
-    public Optional<Board> boardRead(@PathVariable(name = "id") int id){
-        Optional<Board> board = boardService.boardSelect(id);
-        return board;
+    public Board boardRead(@PathVariable int id){
+        return boardService.boardSelect(id);
+
     }
-
-
 
     /*
         {
@@ -98,25 +85,31 @@ public class BoardController {
     // Create
     // http://localhost:8080/board-create"
     @PostMapping("/board-create")
-    public void postTest(@RequestBody Board board){
+    public void boardCreate(@RequestBody Board board){
         boardService.boardSave(board);
     }
 
+    // Update
+    /*
+    {
+     "title" : "변경됨",
+     "content" : "변경됬음"
+     }
+     */
+    // http://localhost:8080/board-update/1
+    @PutMapping("/board-update/{id}")
+    public void boardUpdates(@PathVariable int id,@RequestBody Board board) {
+        System.out.println(board);
+        boardService.boardUpdateImpl(id, board);
+    }
+
+    //Delete
+    // http://localhost:8080/board-delete/2
+    @DeleteMapping("/board-delete/{id}")
+    public void boardDelete(@PathVariable int id){
+        boardService.boardDelete(id);
+    }
 
 
-
-/*
-    private int seq;
-
-    private String title;
-
-    private String writer;
-
-    private String content;
-
-    private Date regDate;
-
-    private int cnt;
-*/
 
 }
